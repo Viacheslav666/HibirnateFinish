@@ -1,8 +1,6 @@
 package DAO;
 
-import Entiti.Role;
 import Entiti.User;
-import Entiti.User_role;
 
 import java.util.List;
 

@@ -1,10 +1,10 @@
 package Entiti;
 
 import lombok.*;
-import sun.util.resources.CalendarData;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Table(name = "`User`")
@@ -29,6 +29,8 @@ public class User {
     private Date dataCreation;
     @Column(name = "data_update")
     private Date dateUpdate;
+    @ManyToMany(mappedBy = "User_role", cascade = CascadeType.ALL)
+    private List<UserRole> roles;
 
     public User(String nameUser, String loginUser, String passwordUser) {
         this.nameUser = nameUser;

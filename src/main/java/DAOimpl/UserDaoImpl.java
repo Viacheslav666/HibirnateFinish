@@ -3,8 +3,12 @@ package DAOimpl;
 import DAO.UserDAO;
 import Entiti.Role;
 import Entiti.User;
+import org.hibernate.Session;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class UserDaoImpl implements UserDAO {
@@ -12,7 +16,7 @@ public class UserDaoImpl implements UserDAO {
         EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("myPersistenceUnit");
         return entityManagerFactory.createEntityManager();
     }
-    public List getAllUser() {
+    public List<User> getAllUser() {
         EntityManager entityManager =createEntityManager();
         Query query =  entityManager.createNativeQuery("SELECT * FROM user", User.class);
         return query.getResultList();
@@ -21,10 +25,15 @@ public class UserDaoImpl implements UserDAO {
     public User getUserID(int id) {
         EntityManager entityManager = createEntityManager();
         return entityManager.find(User.class, id);
-
     }
 
-    public User getUserRole(User user) {
+    public User getUserRole(int id) {
+        EntityManager entityManager = createEntityManager();
+        EntityTransaction transaction = entityManager.getTransaction();
+        transaction.begin();
+        User user = entityManager.find(User.class, id);
+        entityManager.getTransaction().commit();
+  return user;
 
     }
     public void deleteUser(int id) {

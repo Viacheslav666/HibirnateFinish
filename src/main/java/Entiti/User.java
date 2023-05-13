@@ -1,10 +1,13 @@
 package Entiti;
 
 import lombok.*;
+import sun.util.resources.LocaleData;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Entity
 @Table(name = "`User`")
@@ -26,16 +29,17 @@ public class User {
     @Column(name = "password_user")
     private String passwordUser;
     @Column(name = "data_creation")
-    private Date dataCreation;
+    private LocalDate dataCreation;
     @Column(name = "data_update")
-    private Date dateUpdate;
-    @ManyToMany(mappedBy = "User_role", cascade = CascadeType.ALL)
-    private List<UserRole> roles;
+    private LocalDate dateUpdate;
+    @ManyToMany
+    private List <Role> roles;
 
-    public User(String nameUser, String loginUser, String passwordUser) {
+    public User(String nameUser, String loginUser, String passwordUser, Role role) {
         this.nameUser = nameUser;
         this.loginUser = loginUser;
         this.passwordUser = passwordUser;
-        this.dataCreation = new Date();
+        this.dataCreation = LocalDate.now();
+
     }
 }
